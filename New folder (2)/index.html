@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WW2 Historical Analysis</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root{
+  --bg:#0A0A09; --bg-raised:#111110; --paper:#E9E4D7; --paper-dim:#9C9689;
+  --rule:#2A2924; --rule-strong:#48453C; --accent:#B4392C; --khaki:#8A8560;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--paper);
+  font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;}
+button{cursor:pointer;background:none;border:none;color:inherit;font:inherit;padding:0;}
+::selection{background:var(--accent);color:var(--bg);}
+.serif{font-family:'Source Serif 4',Georgia,serif;}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace;}
+.px{padding-left:16px;padding-right:16px;}
+@media(min-width:768px){.px{padding-left:32px;padding-right:32px;}}
+
+.masthead{border-bottom:1px solid var(--rule);background:var(--bg-raised);padding:8px 16px;text-align:center;}
+.masthead p{font-size:11px;letter-spacing:.03em;color:var(--khaki);margin:0;font-family:'IBM Plex Mono',ui-monospace,monospace;}
+
+.navbar{border-bottom:1px solid var(--rule);padding:16px;display:flex;align-items:center;justify-content:space-between;}
+@media(min-width:768px){.navbar{padding:16px 32px;}}
+.navbar .logo{font-size:17px;font-weight:600;letter-spacing:.01em;}
+.navbar .count{font-size:11px;color:var(--paper-dim);margin:0;}
+
+.hero{padding:56px 16px 40px;}
+@media(min-width:768px){.hero{padding:80px 32px 56px;}}
+.hero .eyebrow{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-bottom:20px;font-size:11px;letter-spacing:.03em;}
+.hero .eyebrow .tag{color:var(--accent);border:1px solid var(--accent);padding:4px 8px;}
+.hero .eyebrow .sub{color:var(--paper-dim);}
+.hero h1{font-weight:600;line-height:.95;max-width:820px;margin:0;font-size:clamp(2.6rem,7vw,5.2rem);}
+.hero p{margin-top:24px;max-width:560px;color:var(--paper-dim);line-height:1.6;font-size:1.05rem;}
+.hero .rule{margin-top:32px;height:1px;background:var(--rule-strong);}
+
+.grid-wrap{padding:0 16px 80px;}
+@media(min-width:768px){.grid-wrap{padding:0 32px 80px;}}
+
+.featured{display:block;width:100%;text-align:left;border-top:1px solid var(--rule-strong);border-bottom:1px solid var(--rule-strong);padding:32px 0;}
+@media(min-width:768px){.featured{padding:40px 0;}}
+.featured h2{margin:16px 0 0;font-weight:600;line-height:1.05;max-width:720px;font-size:clamp(1.8rem,4vw,2.9rem);}
+.featured p.deck{margin:12px 0 0;max-width:560px;color:var(--paper-dim);line-height:1.6;}
+.featured .cta{margin:20px 0 0;font-size:12px;letter-spacing:.03em;}
+
+.tagrow{display:flex;flex-wrap:wrap;align-items:center;gap:4px 16px;font-size:11px;letter-spacing:.03em;color:var(--paper-dim);font-family:'IBM Plex Mono',ui-monospace,monospace;}
+.tagrow .accent{color:var(--accent);}
+.tagrow .sep{color:var(--rule-strong);}
+
+.cardgrid{display:grid;grid-template-columns:1fr;}
+@media(min-width:768px){.cardgrid{grid-template-columns:repeat(3,1fr);column-gap:32px;}}
+.card{display:flex;flex-direction:column;width:100%;text-align:left;padding:28px 4px;border-top:1px solid var(--rule);height:100%;}
+.card .top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
+.card .idx{font-size:11px;color:var(--rule-strong);}
+.card h3{margin:16px 0 0;font-weight:600;font-size:1.4rem;line-height:1.15;}
+.card p.deck{margin:8px 0 0;font-size:.9rem;color:var(--paper-dim);line-height:1.55;flex:1;}
+.card .cta{margin:16px 0 0;font-size:12px;letter-spacing:.03em;color:var(--khaki);}
+.card:hover h3,.featured:hover h2{opacity:.8;}
+
+.reader{padding:40px 16px 96px;}
+@media(min-width:768px){.reader{padding:40px 32px 96px;}}
+.reader-inner{max-width:680px;}
+.back-btn{margin-bottom:40px;font-size:12px;letter-spacing:.03em;color:var(--paper-dim);}
+.reader h1{margin:20px 0 0;font-weight:600;line-height:1.05;font-size:clamp(2rem,5vw,3.2rem);}
+.reader p.deck{margin:16px 0 0;color:var(--paper-dim);line-height:1.6;font-size:1.05rem;}
+.reader .rule{margin-top:40px;height:1px;background:var(--rule-strong);}
+.reader .body{margin-top:40px;}
+.reader .body p{font-family:'Source Serif 4',Georgia,serif;font-size:1.125rem;line-height:1.75;margin:0 0 24px;}
+.dropcap{float:left;font-family:'Source Serif 4',Georgia,serif;font-size:3.6rem;line-height:.8;font-weight:700;color:var(--accent);padding-right:.12em;padding-top:.06em;}
+.endrow{margin-top:56px;padding-top:24px;border-top:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;font-size:11px;letter-spacing:.03em;}
+.endrow .end{color:var(--rule-strong);margin:0;}
+.endrow button{color:var(--khaki);font-size:12px;}
+
+.footer{border-top:1px solid var(--rule);padding:32px 24px;display:flex;flex-direction:column;gap:8px;font-size:11px;letter-spacing:.03em;color:var(--rule-strong);}
+.footer p{margin:0;}
+@media(min-width:768px){.footer{padding:32px;flex-direction:row;align-items:center;justify-content:space-between;}}
+
+.fade-in{animation:fadeIn .35s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+@media(prefers-reduced-motion:reduce){.fade-in{animation:none;}}
+.about{border-top:1px solid var(--rule-strong);padding:48px 24px;max-width:720px;}
+@media(min-width:768px){.about{padding:56px 48px;}}
+.about .meta{font-size:11px;letter-spacing:.03em;color:var(--khaki);margin:0 0 24px;}
+.about h2{margin:0 0 16px;font-weight:600;font-size:1.6rem;}
+.about p{margin:0 0 12px;color:var(--paper-dim);line-height:1.7;}
+</style>
+
+</head>
+<body>
+
+<div class="masthead"><p>FULL PLATFORM LAUNCHING DEC 1, 2026 &mdash; THIS IS AN EARLY PREVIEW</p></div>
+<div class="navbar">
+  <button class="logo serif" id="homeBtn">WW2 / Historical Analysis</button>
+  <p class="mono count" id="countLabel"></p>
+</div>
+<main id="app"><section class="about">
+ 
+</section>
+</main>
+ <p class="meta mono">ABOUT THE AUTHOR</p>
+  <h2 class="serif">Veydant Salwan</h2>
+  <p>I'm a 16 year old who likes many things, of which one is coding and history.</p>
+  <p>I engineered this space to apply modern data visualization to mid-century archival data, making the sheer scale of the global conflict visually intuitive for a new generation of learners.</p>
+<div class="footer mono">
+  <p>WW2 HISTORICAL ANALYSIS &mdash; EDITORIAL PREVIEW</p>
+  <p>FULL PLATFORM: DEC 1, 2026</p>
+</div>
+
+<script>
+const ARTICLES = [
+  {
+    id: "fall-of-france", theater: "WESTERN FRONT", date: "MAY \u2013 JUNE 1940", readTime: "7 MIN",
+    title: "The Six Weeks That Broke France",
+    deck: "How a defense built for the last war collapsed against a strategy built for the next one.",
+    featured: true,
+    body: [
+      "On the morning of May 10th, 1940, German columns moved into the Low Countries and the Ardennes forest, a route French planners had judged too difficult for armor to cross in force. That judgment, more than any single weapon or soldier, decided the campaign before it had properly begun.",
+      "France had spent the interwar years building the Maginot Line, a chain of fortifications facing Germany's eastern border. It was not a foolish idea; it was a rational answer to the trench slaughter of 1914-1918. But the line stopped at the Ardennes, and the German plan, refined by Erich von Manstein over the objections of more cautious generals, sent seven panzer divisions through exactly that gap.",
+      "The breakthrough at Sedan on May 13th was less a battle than a puncture. French reserves, organized to respond to a slower, more deliberate advance, could not reposition fast enough to seal it. Within days German armor had reached the English Channel, cutting off the Allied armies in Belgium and northern France from the bulk of the French army to the south.",
+      "What followed at Dunkirk was a retreat dressed as a rescue: roughly 338,000 British and French troops evacuated across the Channel between May 26th and June 4th, saved in large part by a halt order that gave the panzers pause outside the port. France fought on for another three weeks, but the political will to continue had already broken. An armistice was signed on June 22nd, in the same railway carriage used for Germany's surrender in 1918.",
+      "The lesson drawn by military planners on both sides was not that France had lacked courage or material \u2014 it had tanks and aircraft in numbers comparable to Germany's. It had lacked a doctrine for moving and communicating as fast as the enemy could attack. That gap in tempo, not a gap in steel, is what historians now point to as the campaign's real cause of death."
+    ]
+  },
+  {
+    id: "bletchley-park", theater: "INTELLIGENCE", date: "1939 \u2013 1945", readTime: "6 MIN",
+    title: "Inside Hut 6: Breaking the Enigma Code",
+    deck: "A country house in Buckinghamshire became the quietest weapon of the war.",
+    featured: false,
+    body: [
+      "Enigma was not one machine but a family of them, and Germany's confidence in the system was not misplaced on its own terms: the number of possible settings ran into the hundreds of trillions. What German operators could not account for was that Polish cryptanalysts had already reconstructed the machine's logic in the 1930s, and handed that foundation to Britain and France weeks before the war began.",
+      "At Bletchley Park, that foundation became an industrial operation. Alan Turing and Gordon Welchman's bombe machines did not read messages directly; they narrowed the universe of possible daily settings fast enough that human cryptanalysts could finish the job before the intelligence went stale. Speed was the entire point \u2014 a decrypted message about a U-boat position was worthless a week late.",
+      "The intelligence produced this way was codenamed Ultra, and its greatest danger was its own value. Commanders receiving Ultra intercepts had to be prevented from acting on them so directly that German intelligence would suspect the cipher itself was compromised. Convoys were sometimes rerouted with a deliberately visible reconnaissance flight first, so a lucky sighting could take credit for what codebreaking had actually revealed.",
+      "Estimates of Ultra's effect vary, but historians including Harry Hinsley, who worked at Bletchley himself, have argued the intelligence shortened the war in Europe by a significant margin, particularly through its effect on the Battle of the Atlantic, where knowledge of U-boat positions let convoys route around wolf packs rather than fight through them.",
+      "The work stayed classified for nearly thirty years after the war ended, which meant a generation of the people who had shortened it, many of them women serving as operators and translators, received no public acknowledgment in their lifetimes for what they had done."
+    ]
+  },
+  {
+    id: "stalingrad", theater: "EASTERN FRONT", date: "AUGUST 1942 \u2013 FEBRUARY 1943", readTime: "8 MIN",
+    title: "Stalingrad: Where the Wehrmacht Stopped",
+    deck: "A city fought over street by street until the attackers became the surrounded.",
+    featured: false,
+    body: [
+      "By the autumn of 1942, the German 6th Army had pushed into Stalingrad itself, and the battle changed character. Armor and airpower, the tools that had won Germany's earlier campaigns, lost most of their advantage in a landscape of rubble, sewers, and stairwells. Soviet soldiers held the line so close to German positions, sometimes across a single wall, that German artillery and air support risked hitting their own troops.",
+      "The fighting for individual buildings became infamous enough to earn names: the grain elevator, Pavlov's House, the Red October factory. Soviet commanders deliberately kept the front lines pressed tight against the Germans for this reason, a tactic soldiers called 'hugging' the enemy, denying the Wehrmacht the standoff distance its firepower depended on.",
+      "While the 6th Army exhausted itself in the city, the Red Army assembled two fresh fronts on the flanks, held by weaker Romanian and Italian formations rather than German troops. Operation Uranus, launched on November 19th, 1942, drove through those flanks and closed around Stalingrad within four days, trapping roughly 250,000 Axis soldiers inside the pocket.",
+      "Hitler refused to authorize a breakout, insisting the city be held and that a relief operation, along with an ultimately impossible air resupply effort, would save the encircled army. Neither materialized at sufficient scale. Field Marshal Friedrich Paulus surrendered the remnants of the 6th Army on February 2nd, 1943, the first time a German field marshal had surrendered in the field.",
+      "The material losses were severe, but the strategic loss was worse: Stalingrad marked the last major German offensive in the east that carried any real hope of victory. From this point the initiative on the Eastern Front, and with it the direction of the war in Europe, belonged to the Soviet Union."
+    ]
+  },
+  {
+    id: "d-day", theater: "WESTERN FRONT", date: "JUNE 6, 1944", readTime: "7 MIN",
+    title: "The Longest Night: Planning Overlord",
+    deck: "The invasion of Normandy was decided as much by deception and weather as by the landing itself.",
+    featured: false,
+    body: [
+      "Operation Overlord succeeded in part because of a battle the public never saw: Operation Fortitude, an elaborate deception built around a fictional army group commanded by George Patton, positioned to threaten Calais, the shortest crossing point and the landing site German planners considered most likely. Dummy vehicles, fake radio traffic, and double agents kept German reserves anchored away from Normandy for weeks after the real landings began.",
+      "The invasion itself had been scheduled for June 5th and was postponed a day on the judgment of the Allied meteorological team, who identified a narrow window of tolerable weather between two fronts. Eisenhower's decision to go on the 6th, made with full knowledge that a wrong call could sink the operation before it started, is often cited as the single heaviest decision of his career.",
+      "Nearly 133,000 troops landed by sea across five beaches \u2014 Utah, Omaha, Gold, Juno, and Sword \u2014 supported by over 11,000 aircraft and preceded by airborne drops meant to secure the flanks and disrupt German response. Omaha Beach, defended by a more capable German division than intelligence had anticipated, saw the heaviest casualties of the day by a wide margin.",
+      "German command's response was slowed not only by Fortitude but by its own command structure: reserve panzer divisions could not move without Hitler's direct authorization, and Hitler was asleep when the landings began. By the time authorization came through, the beachhead was no longer something a single counterattack could remove.",
+      "Normandy did not end the war, and the campaign that followed through the hedgerows of the Bocage country was slower and costlier than planners had hoped. But it opened the second front the Soviet Union had been requesting since 1941, and put an Allied army permanently onto the European mainland."
+    ]
+  },
+  {
+    id: "island-hopping", theater: "PACIFIC THEATER", date: "1943 \u2013 1945", readTime: "6 MIN",
+    title: "Leapfrog: The Island War in the Pacific",
+    deck: "Rather than take every Japanese position, the Allies chose which ones were worth fighting for.",
+    featured: false,
+    body: [
+      "The Pacific presented a geography problem the European theater did not: thousands of miles of ocean studded with fortified islands, too many to capture one at a time without exhausting the force needed to finish the war. The answer that emerged, credited largely to Admiral Chester Nimitz and General Douglas MacArthur, was to bypass the most heavily defended islands entirely.",
+      "Island hopping, or leapfrogging, meant selecting positions that offered airfields or harbors useful for the next advance, while leaving stronger Japanese garrisons isolated on islands the Allies simply stopped supplying by sea. Cut off from resupply and reinforcement, those garrisons posed little further threat regardless of their strength.",
+      "This did not make the islands that were chosen easy. Tarawa, in November 1943, cost the Marines roughly a thousand dead in seventy-six hours over an atoll smaller than New York's Central Park, a casualty rate that forced a rethink of amphibious assault tactics for every landing that followed.",
+      "Iwo Jima and Okinawa, both fought in 1945 as the campaign closed in on the Japanese home islands, produced the war's heaviest Pacific casualties on both sides and shaped the American estimate of what an invasion of Japan itself would cost \u2014 an estimate that weighed directly on the decision to use the atomic bomb rather than proceed with a ground invasion.",
+      "The strategy's success is easiest to see in the numbers it avoided: of the hundreds of islands and atolls Japan had fortified across the Pacific, the Allies physically assaulted only a fraction of them on the way to Tokyo Bay."
+    ]
+  },
+  {
+    id: "manhattan-project", theater: "HOME FRONT", date: "1942 \u2013 1945", readTime: "7 MIN",
+    title: "Trinity: The Weapon That Ended the War",
+    deck: "The most expensive secret of the war was tested in a New Mexico desert before it was ever used.",
+    featured: false,
+    body: [
+      "The Manhattan Project drew together over 130,000 workers at sites in Oak Ridge, Hanford, and Los Alamos, most of whom had no idea what the larger effort was building. Compartmentalization was deliberate policy: the fewer people who understood the whole picture, the smaller the risk that any one of them could leak it.",
+      "Scientifically, the project ran two parallel paths to a bomb, uranium enrichment and plutonium production, because no one was certain in advance which would work at usable scale. The uranium design, used in the bomb dropped on Hiroshima, was considered reliable enough that it was never test-detonated before use. The plutonium design required confirmation.",
+      "That confirmation came on July 16th, 1945, near Alamogordo, New Mexico, when the Trinity test detonated a plutonium device with a force exceeding what most of the scientists present had predicted. Robert Oppenheimer, the project's scientific director, later said the test brought a line from the Bhagavad Gita to his mind, though colleagues who were present that day gave differing accounts of what was actually said in the moment.",
+      "Three weeks later, atomic bombs were dropped on Hiroshima on August 6th and Nagasaki on August 9th. Japan announced its surrender on August 15th. The question of whether the bombings were necessary to end the war without a costlier invasion, or whether Japan was already close to surrender for other reasons, remains one of the most contested debates in the historiography of the war.",
+      "What is not contested is the shift the weapon caused in how war itself was planned afterward: for the first time, a single device could inflict what previously required a sustained campaign, and every major military power spent the following decades organized around that fact."
+    ]
+  }
+];
+
+const app = document.getElementById('app');
+document.getElementById('countLabel').textContent = String(ARTICLES.length).padStart(2,'0') + ' ARTICLES ON FILE';
+
+function tagRow(a, accent){
+  return '<div class="tagrow"><span class="' + (accent ? 'accent' : '') + '">' + a.theater + '</span>' +
+    '<span class="sep">/</span><span>' + a.date + '</span>' +
+    '<span class="sep">/</span><span>' + a.readTime + ' READ</span></div>';
+}
+
+function renderIndex(){
+  const featured = ARTICLES.find(function(a){ return a.featured; });
+  const rest = ARTICLES.filter(function(a){ return !a.featured; });
+
+  let cards = '';
+  rest.forEach(function(a, i){
+    cards += '<button class="card" data-id="' + a.id + '">' +
+      '<div class="top">' + tagRow(a, false) +
+      '<span class="idx mono">' + String(i + 1).padStart(2, '0') + '</span></div>' +
+      '<h3 class="serif">' + a.title + '</h3>' +
+      '<p class="deck">' + a.deck + '</p>' +
+      '<p class="cta mono">READ \u2192</p></button>';
+  });
+
+  app.innerHTML =
+    '<div class="hero">' +
+      '<div class="eyebrow mono"><span class="tag">1939 \u2014 1945</span>' +
+      '<span class="sub">SIX EDITORIAL DOSSIERS, REVISITED</span></div>' +
+      '<h1 class="serif">WW2 Historical Analysis</h1>' +
+      '<p>Long-form readings on the decisions, failures, and turning points of the Second World War \u2014 written for readers who want the reasoning behind the dates, not just the dates.</p>' +
+      '<div class="rule"></div>' +
+    '</div>' +
+    '<div class="grid-wrap">' +
+      '<button class="featured" data-id="' + featured.id + '">' + tagRow(featured, true) +
+        '<h2 class="serif">' + featured.title + '</h2>' +
+        '<p class="deck">' + featured.deck + '</p>' +
+        '<p class="cta mono">READ DOSSIER \u2192</p></button>' +
+      '<div class="cardgrid">' + cards + '</div>' +
+    '</div>';
+
+  app.querySelectorAll('[data-id]').forEach(function(el){
+    el.addEventListener('click', function(){
+      const article = ARTICLES.find(function(a){ return a.id === el.dataset.id; });
+      renderReader(article);
+    });
+  });
+}
+
+function renderReader(article){
+  let bodyHtml = '';
+  article.body.forEach(function(para, i){
+    if (i === 0) {
+      bodyHtml += '<p><span class="dropcap">' + para.charAt(0) + '</span>' + para.slice(1) + '</p>';
+    } else {
+      bodyHtml += '<p>' + para + '</p>';
+    }
+  });
+
+  app.innerHTML =
+    '<div class="reader fade-in">' +
+      '<button class="back-btn mono" id="backBtn">\u2190 BACK TO INDEX</button>' +
+      '<div class="reader-inner">' + tagRow(article, true) +
+        '<h1 class="serif">' + article.title + '</h1>' +
+        '<p class="deck">' + article.deck + '</p>' +
+        '<div class="rule"></div>' +
+        '<div class="body">' + bodyHtml + '</div>' +
+        '<div class="endrow mono"><p class="end">END OF DOSSIER</p>' +
+        '<button id="backBtn2">\u2190 ALL ARTICLES</button></div>' +
+      '</div>' +
+    '</div>';
+
+  window.scrollTo({ top: 0 });
+  document.getElementById('backBtn').addEventListener('click', renderIndex);
+  document.getElementById('backBtn2').addEventListener('click', renderIndex);
+}
+
+document.getElementById('homeBtn').addEventListener('click', renderIndex);
+renderIndex();
+</script>
+</body>
+</html>
